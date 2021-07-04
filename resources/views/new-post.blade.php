@@ -4,26 +4,52 @@
   <!-- Page Header -->
   <div class="page-header row no-gutters py-4">
     <div class="col-12 col-sm-4 text-center text-sm-left mb-0">
-      <span class="text-uppercase page-subtitle">Blog Posts</span>
-      <h3 class="page-title">Add New Post</h3>
+      <span class="text-uppercase page-subtitle">News Posts</span>
+      <h3 class="page-title">Add New Check News</h3>
     </div>
   </div>
   <!-- End Page Header -->
   <div class="row">
-    <div class="col-lg-9 col-md-12">
+    <div class="col-lg-9 col-md-12" id="content_berita">
+      
       <!-- Add New Post Form -->
       <div class="card card-small mb-3">
         <div class="card-body">
-          <form class="add-new-post">
+          <form class="add-new-post" action="" method="">
             <label>Header Title</label>
-            <input class="form-control form-control-lg mb-3" type="text" placeholder="Post Title">
+            <input v-model="header_title" class="form-control form-control-md mb-3" name="title" type="text" placeholder="Post Title" required>
             <label>Link Berita</label>
-            <input class="form-control form-control-lg mb-3" type="text" placeholder="Link Berita">
+            <div class="row">
+              <div class="col-sm-10">
+                <input v-model="link" class="form-control form-control-md mb-3" name="link" type="text"   placeholder="Link Berita">
+              </div>
+              <div class="col-sm-2">
+                <a v-bind:href="link" class="btn btn-primary btn-md" target="beritanya">cek link</a>
+              </div>
+            </div>
           </form>
         </div>
       </div>
       <!-- / Add New Post Form -->
+
+      {{-- Content link --}}
+      <div class="card card-small mb-3">
+        <div class="card-body">
+            <p class="text-center text-justify text-dark">Content berita : <span class="text-primary">@{{link}}</span></p>
+            <hr style="border: 2px solid"/>
+            <div class="input-group mb-3">
+                <input v-model="cari_kata" type="text" class="form-control" placeholder="Search">
+                <div class="input-group-append">
+                  <button class="btn btn-success" type="submit" v-on:click="cek_berita()">Cari</button>
+                </div>
+            </div>
+            @include('frame_berita')
+        </div>
+      </div>
+      {{-- ./Content link --}}
+
     </div>
+
     <div class="col-lg-3 col-md-12">
       <!-- Post Overview -->
       <div class='card card-small mb-3'>
@@ -54,9 +80,9 @@
             </li>
             <li class="list-group-item d-flex px-3">
               <button class="btn btn-sm btn-outline-accent">
-                <i class="material-icons">save</i> Save Draft</button>
+                <i class="material-icons">check</i> Valid</button>
               <button class="btn btn-sm btn-accent ml-auto">
-                <i class="material-icons">file_copy</i> Publish</button>
+                <i class="material-icons">close</i> Hoax</button>
             </li>
           </ul>
         </div>

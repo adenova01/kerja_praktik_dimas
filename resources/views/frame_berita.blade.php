@@ -1,0 +1,1 @@
+<iframe name="beritanya" id="iframe_content" width="100%" height="600px" allowfullscreen="true" frameborder="0"></iframe>

@@ -32,7 +32,7 @@
         <div class="card-body p-0 d-flex">
           <div class="d-flex flex-column m-auto">
             <div class="stats-small__data text-center">
-              <span class="stats-small__label text-uppercase">Situs</span>
+              <span class="stats-small__label text-uppercase">Valid</span>
               <h6 class="stats-small__value count my-3">182</h6>
             </div>
             <div class="stats-small__data">
@@ -48,7 +48,7 @@
         <div class="card-body p-0 d-flex">
           <div class="d-flex flex-column m-auto">
             <div class="stats-small__data text-center">
-              <span class="stats-small__label text-uppercase">Users</span>
+              <span class="stats-small__label text-uppercase">Situs</span>
               <h6 class="stats-small__value count my-3">2,413</h6>
             </div>
             <div class="stats-small__data">

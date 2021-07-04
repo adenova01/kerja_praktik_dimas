@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Shards Dashboard Lite - Free Bootstrap Admin Template – DesignRevision</title>
+    <title>Cek Hoax Dinas Kominfo Jatim</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -45,11 +45,56 @@
 
     <script src="{{ asset('/vendors/assets/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('/vendors/assets/dataTables.bootstrap4.min.js') }}"></script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
     <script>
       $(document).ready(function() {
         $('#example').DataTable();
+        alert(('#iframe_content').value());
       });
+
+      // script vue 
+      const app = new Vue({
+        el: "#content_berita",
+        data: {
+          link : '',
+          header_title : '',
+          cari_kata : '',
+          berita : '',
+        },
+        watch: {},
+        methods: {
+          cek_kata: function(){
+            console.log(this.berita);
+            // axios
+            //   .post("{{ url('api/cek_kata') }}", {
+            //     kata : this.cari_kata,
+            //     url : this.link,
+            //   })
+            //   .then(response => {
+            //     this.file = response.data.file_content
+            //     console.log(this.file);
+            //   }).catch(err => {
+            //     console.log(err);
+            //   });
+          },
+          cekLink: function(){
+            axios
+              .get("{{ url('api/cek_berita/."+this.berita+"') }}")
+              .then(response => {
+                console.log(response);
+              }).catch(err => {
+                console.log(err);
+              });
+          }
+        },
+        mounted(){
+          // this.cek_kata();
+        }
+      });
+      //  ./script vue
     </script>
   </body>
 </html>
