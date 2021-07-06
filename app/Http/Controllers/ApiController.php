@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Berita;
 
 class ApiController extends Controller
 {
@@ -27,5 +28,64 @@ class ApiController extends Controller
         ];
 
         return response()->json($data);
+    }
+
+    public function save_berita(Request $request)
+    {
+        $data = [
+            'text_header' => $request->post('header'),
+            'link_berita' => $request->post('link'),
+            'id_user'     => $request->post('user_id'),
+            'status'      => 'sedang di cek'
+        ];
+
+
+        if(!@fopen($data['link_berita'], 'r')){
+            $response = [
+                'pesan' => 'gagal',
+                'code'  => 403,
+            ];
+        } else {
+            $insert = Berita::insert($data);
+            $id_berita = Berita::max('id_berita');
+
+            $response = [
+                'pesan' => 'sukses',
+                'code'  => 200,
+            ];
+        }
+
+        return response()->json($response);
+    }
+
+    public function getBerita()
+    {
+        $maxId = Berita::max('id_berita');
+        $berita = Berita::where('id_berita', $maxId)->first();
+
+        return response()->json($berita);
+    }
+
+    public function updateBerita(Request $request, $id)
+    {
+        $data = [
+            'status' => $request->post('status')
+        ];
+
+        // $update = Berita::where('id_berita', $id)->update($data);
+
+        // if($update){
+            $response = [
+                'pesan' => 'sukses',
+                'code'  => 200,
+            ];
+        // } else {
+        //     $response = [
+        //         'pesan' => 'gagal',
+        //         'code'  => 403,
+        //     ];
+        // }
+
+        return response()->json($response);
     }
 }

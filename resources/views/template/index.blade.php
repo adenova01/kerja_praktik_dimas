@@ -63,6 +63,8 @@
           header_title : '',
           cari_kata : '',
           berita : '',
+          status_berita : '',
+          id_berita : ''
         },
         watch: {},
         methods: {
@@ -86,6 +88,44 @@
               .then(response => {
                 console.log(response);
               }).catch(err => {
+                console.log(err);
+              });
+          },
+          saveBerita: function(){
+            axios
+              .post("{{ url('api/save_berita/') }}", {
+                header : this.header_title,
+                link : this.link,
+                user_id : "{{ session('id_user') }}"
+              }).then(response => {
+                this.get_detil_berita();
+                // console.log(response.data);
+              }).catch(err => {
+                console.log(err);
+              });
+          },
+          get_detil_berita: function(){
+            axios
+              .get("{{ url('api/get_berita/') }}")
+              .then(response => {
+                this.status_berita = response.data.status;
+                this.id_berita = response.data.id_berita;
+                console.log(this.id_berita);
+              }).catch(err => {
+                console.log(err);
+              });
+          },
+          valid: function(){
+            var url = "{{ url('api/update_berita/"+this.id_berita+"') }}";
+            // console.log(url);
+            axios
+              .post(url, {
+                status : 'valid'
+              })
+              .then(response => {
+                console.log(response.data);
+              })
+              .catch(err => {
                 console.log(err);
               });
           }

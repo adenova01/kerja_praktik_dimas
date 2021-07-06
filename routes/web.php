@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CheckNewsController;
+use App\Http\Controllers\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,10 +16,14 @@ use App\Http\Controllers\CheckNewsController;
 |
 */
 
-Route::get('/', [HomeController::class, 'Home']);
+Route::get('/', function(){
+    return view('login');
+});
+
+Route::post('/cekLogin', [AuthController::class, 'cek_login']);
 
 Route::get('list-hoax', [HomeController::class, 'listHoax']);
 Route::get('home', [HomeController::class, 'Home']);
 Route::get('new-post', [HomeController::class, 'addNew']);
 
-Route::post('chek-news', [CheckNewsController::class, 'addNew']);
+// Route::post('save-news', [CheckNewsController::class, 'save_berita']);

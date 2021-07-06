@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Kategori;
+use App\Models\Berita;
 
 class HomeController extends Controller
 {
@@ -15,12 +17,14 @@ class HomeController extends Controller
     public function Home()
     {
         $title = 'Home';
-        return view('home', compact('title'));
+        $berita = Berita::all();
+        return view('home', compact('title','berita'));
     }
 
     public function addNew()
     {
         $title = 'Add New';
-        return view('new-post', compact('title'));
+        $kategori = Kategori::all();
+        return view('new-post', compact('title','kategori'));
     }
 }

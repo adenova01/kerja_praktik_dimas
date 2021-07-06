@@ -1,6 +1,6 @@
 @extends('template.index')
 @section('content')
-<div class="main-content-container container-fluid px-4">
+<div class="main-content-container container-fluid px-4" id="content_berita">
   <!-- Page Header -->
   <div class="page-header row no-gutters py-4">
     <div class="col-12 col-sm-4 text-center text-sm-left mb-0">
@@ -10,7 +10,7 @@
   </div>
   <!-- End Page Header -->
   <div class="row">
-    <div class="col-lg-9 col-md-12" id="content_berita">
+    <div class="col-lg-9 col-md-12">
       
       <!-- Add New Post Form -->
       <div class="card card-small mb-3">
@@ -24,7 +24,7 @@
                 <input v-model="link" class="form-control form-control-md mb-3" name="link" type="text"   placeholder="Link Berita">
               </div>
               <div class="col-sm-2">
-                <a v-bind:href="link" class="btn btn-primary btn-md" target="beritanya">cek link</a>
+                <a v-bind:href="link" class="btn btn-primary btn-md" target="beritanya" v-on:click="saveBerita()">cek link</a>
               </div>
             </div>
           </form>
@@ -37,12 +37,12 @@
         <div class="card-body">
             <p class="text-center text-justify text-dark">Content berita : <span class="text-primary">@{{link}}</span></p>
             <hr style="border: 2px solid"/>
-            <div class="input-group mb-3">
+            {{-- <div class="input-group mb-3">
                 <input v-model="cari_kata" type="text" class="form-control" placeholder="Search">
                 <div class="input-group-append">
                   <button class="btn btn-success" type="submit" v-on:click="cek_berita()">Cari</button>
                 </div>
-            </div>
+            </div> --}}
             @include('frame_berita')
         </div>
       </div>
@@ -61,7 +61,8 @@
             <li class="list-group-item p-3">
               <span class="d-flex mb-2">
                 <i class="material-icons mr-1">flag</i>
-                <strong class="mr-1">Status:</strong> Checked
+                <strong class="mr-1">Status:</strong> 
+                @{{status_berita}}
               </span>
               <span class="d-flex mb-2">
                 <i class="material-icons mr-1">visibility</i>
@@ -79,10 +80,12 @@
               </span>
             </li>
             <li class="list-group-item d-flex px-3">
-              <button class="btn btn-sm btn-outline-accent">
-                <i class="material-icons">check</i> Valid</button>
+              <button class="btn btn-sm btn-outline-accent" v-on:click="valid()">
+                <i class="material-icons">check</i> Valid
+              </button>
               <button class="btn btn-sm btn-accent ml-auto">
-                <i class="material-icons">close</i> Hoax</button>
+                <i class="material-icons">close</i> Hoax
+              </button>
             </li>
           </ul>
         </div>
@@ -96,27 +99,13 @@
         <div class='card-body p-0'>
           <ul class="list-group list-group-flush">
             <li class="list-group-item px-3 pb-2">
+              @foreach ($kategori as $key => $item)
               <div class="custom-control custom-checkbox mb-1">
-                <input type="checkbox" class="custom-control-input" id="category1" checked>
-                <label class="custom-control-label" for="category1">Uncategorized</label>
+                <input type="checkbox" class="custom-control-input" name="kategori[]" id="category{{$key}}" value="{{ $item->id }}">
+                <label class="custom-control-label" for="category{{$key}}">{{$item->nama_kategori}}</label>
               </div>
-              <div class="custom-control custom-checkbox mb-1">
-                <input type="checkbox" class="custom-control-input" id="category2" checked>
-                <label class="custom-control-label" for="category2">Design</label>
-              </div>
-              <div class="custom-control custom-checkbox mb-1">
-                <input type="checkbox" class="custom-control-input" id="category3">
-                <label class="custom-control-label" for="category3">Development</label>
-              </div>
-              <div class="custom-control custom-checkbox mb-1">
-                <input type="checkbox" class="custom-control-input" id="category4">
-                <label class="custom-control-label" for="category4">Writing</label>
-              </div>
-              <div class="custom-control custom-checkbox mb-1">
-                <input type="checkbox" class="custom-control-input" id="category5">
-                <label class="custom-control-label" for="category5">Books</label>
-              </div>
-            </li>
+              @endforeach
+              </li>
           </ul>
         </div>
       </div>
