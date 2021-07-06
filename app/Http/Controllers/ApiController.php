@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Berita;
+use App\Models\kategori;
+use Illuminate\Support\Facades\DB;
 
 class ApiController extends Controller
 {
@@ -19,15 +21,15 @@ class ApiController extends Controller
         return response()->json($data);
     }
 
-    public function cekBerita($link)
+    public function cekBerita($id)
     {
-        $data = [
-            "respon" => "200",
-            "message" => "sukses",
-            // "file_content" => file_get_contents($link)
+        $response = [
+            'berita' => Berita::where('id_berita', $id)->first(),
+            'view' => "url('new-post')"
         ];
-
-        return response()->json($data);
+        
+        return response()->json($response);
+        // return view('new-post', compact('title','kategori','berita'));
     }
 
     public function save_berita(Request $request)
@@ -38,7 +40,6 @@ class ApiController extends Controller
             'id_user'     => $request->post('user_id'),
             'status'      => 'sedang di cek'
         ];
-
 
         if(!@fopen($data['link_berita'], 'r')){
             $response = [
@@ -66,25 +67,27 @@ class ApiController extends Controller
         return response()->json($berita);
     }
 
-    public function updateBerita(Request $request, $id)
+    public function updateBerita($status, $id)
     {
         $data = [
-            'status' => $request->post('status')
+            'status'  => $status
         ];
 
-        // $update = Berita::where('id_berita', $id)->update($data);
+        $update = DB::table('berita')
+                        ->where('id_berita', $id)
+                        ->update($data);
 
-        // if($update){
+        if($update){
             $response = [
                 'pesan' => 'sukses',
-                'code'  => 200,
+                'code'  => 200
             ];
-        // } else {
-        //     $response = [
-        //         'pesan' => 'gagal',
-        //         'code'  => 403,
-        //     ];
-        // }
+        } else {
+            $response = [
+                'pesan' => 'gagal',
+                'code'  => 403,
+            ];
+        }
 
         return response()->json($response);
     }

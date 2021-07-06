@@ -21,6 +21,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::post('/cek_kata', [ApiController::class, 'cekKata']);
 Route::post('/save_berita', [ApiController::class, 'save_berita']);
-Route::get('/cek_berita/{link}', [ApiController::class, 'cekBerita']);
 Route::get('/get_berita', [ApiController::class, 'getBerita']);
-Route::post('/update_berita/{id}', [ApiController::class, 'updateBerita']);
+Route::get('/update_berita/{status}/{id}', [ApiController::class, 'updateBerita']);
+Route::get('/cekBerita/{id}', [ApiController::class, 'cekBerita']);

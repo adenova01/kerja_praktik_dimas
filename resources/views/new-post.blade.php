@@ -1,6 +1,6 @@
 @extends('template.index')
 @section('content')
-<div class="main-content-container container-fluid px-4" id="content_berita">
+<div class="main-content-container container-fluid px-4">
   <!-- Page Header -->
   <div class="page-header row no-gutters py-4">
     <div class="col-12 col-sm-4 text-center text-sm-left mb-0">
@@ -17,11 +17,11 @@
         <div class="card-body">
           <form class="add-new-post" action="" method="">
             <label>Header Title</label>
-            <input v-model="header_title" class="form-control form-control-md mb-3" name="title" type="text" placeholder="Post Title" required>
+            <input v-model="header_title" class="form-control form-control-md mb-3" name="title" type="text" placeholder="Post Title" value="{{ Request::segment(2) != null ? $berita->text_header : '' }}" required>
             <label>Link Berita</label>
             <div class="row">
               <div class="col-sm-10">
-                <input v-model="link" class="form-control form-control-md mb-3" name="link" type="text"   placeholder="Link Berita">
+                <input v-model="link" class="form-control form-control-md mb-3" name="link" type="text"   placeholder="Link Berita" value="{{ Request::segment(2) != null ? $berita->link_berita : '' }}">
               </div>
               <div class="col-sm-2">
                 <a v-bind:href="link" class="btn btn-primary btn-md" target="beritanya" v-on:click="saveBerita()">cek link</a>
@@ -83,7 +83,7 @@
               <button class="btn btn-sm btn-outline-accent" v-on:click="valid()">
                 <i class="material-icons">check</i> Valid
               </button>
-              <button class="btn btn-sm btn-accent ml-auto">
+              <button class="btn btn-sm btn-accent ml-auto" v-on:click="hoax()">
                 <i class="material-icons">close</i> Hoax
               </button>
             </li>

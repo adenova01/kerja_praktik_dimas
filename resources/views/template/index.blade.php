@@ -21,7 +21,7 @@
         <!-- Main Sidebar -->
         @include('template.sidebar')
         <!-- End Main Sidebar -->
-        <main class="main-content col-lg-10 col-md-9 col-sm-12 p-0 offset-lg-2 offset-md-3">
+        <main class="main-content col-lg-10 col-md-9 col-sm-12 p-0 offset-lg-2 offset-md-3"  id="content_berita">
           <div class="main-navbar sticky-top bg-white">
             <!-- Main Navbar -->
             @include('template.top_nav')
@@ -49,10 +49,12 @@
     <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <script>
       $(document).ready(function() {
         $('#example').DataTable();
-        alert(('#iframe_content').value());
+        // alert(('#iframe_content').value());
       });
 
       // script vue 
@@ -64,7 +66,8 @@
           cari_kata : '',
           berita : '',
           status_berita : '',
-          id_berita : ''
+          id_berita : '',
+          url : ''
         },
         watch: {},
         methods: {
@@ -82,15 +85,6 @@
             //     console.log(err);
             //   });
           },
-          cekLink: function(){
-            axios
-              .get("{{ url('api/cek_berita/."+this.berita+"') }}")
-              .then(response => {
-                console.log(response);
-              }).catch(err => {
-                console.log(err);
-              });
-          },
           saveBerita: function(){
             axios
               .post("{{ url('api/save_berita/') }}", {
@@ -98,8 +92,8 @@
                 link : this.link,
                 user_id : "{{ session('id_user') }}"
               }).then(response => {
-                this.get_detil_berita();
                 // console.log(response.data);
+                this.get_detil_berita();
               }).catch(err => {
                 console.log(err);
               });
@@ -110,22 +104,63 @@
               .then(response => {
                 this.status_berita = response.data.status;
                 this.id_berita = response.data.id_berita;
-                console.log(this.id_berita);
+                // console.log(this.id_berita);
               }).catch(err => {
                 console.log(err);
               });
           },
           valid: function(){
-            var url = "{{ url('api/update_berita/"+this.id_berita+"') }}";
+            // var url = "{{ url('api/update_berita/') }}/"+this.id_berita;
+            var status = 'valid';
+            var url = "{{ url('api/update_berita/') }}/"+status+"/"+this.id_berita;
             // console.log(url);
             axios
-              .post(url, {
-                status : 'valid'
-              })
+              .get(url)
               .then(response => {
                 console.log(response.data);
+                var pesan = response.data.pesan;
+                if(pesan == 'sukses'){
+                  Swal.fire({
+                    icon: 'success',
+                    title: 'Valid',
+                    text: 'Berita is valid'
+                  })
+                }
+                this.get_detil_berita();
               })
               .catch(err => {
+                console.log(err);
+              });
+          },
+          hoax: function()
+          {
+            var status = 'hoax';
+            var url = "{{ url('api/update_berita/') }}/"+status+"/"+this.id_berita;
+            // console.log(url);
+            axios
+              .get(url)
+              .then(response => {
+                var pesan = response.data.pesan
+                if(pesan == 'sukses'){
+                  Swal.fire({
+                    icon: 'error',
+                    title: 'Hoax',
+                    text: 'Berita is hoax'
+                  })
+                }
+              })
+              .catch(err => {
+                console.log(err);
+              });
+          },
+          cekBerita: function(id){
+            this.id_berita = id;
+            axios
+              .get("{{ url('api/cekBerita') }}/"+id)
+              .then(response => {
+                this.url = response.data.view;
+                console.log(this.url);
+              }).catch(err => {
                 console.log(err);
               });
           }

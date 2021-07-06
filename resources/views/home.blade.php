@@ -68,6 +68,7 @@
                 <th>Header Berita</th>
                 <th>Link</th>
                 <th>Status</th>
+                <th>Action</th>
             </tr>
           </thead>
           <tbody>
@@ -77,6 +78,11 @@
                   <td>{{$item->link_berita}}</td>
                   <td>
                     <span class="badge badge-{{ $item->status == 'valid' ? 'success' : ( $item->status == 'hoax' ? 'danger' : 'info' ) }}">{{$item->status}}</span>
+                  </td>
+                  <td>
+                    @if ($item->status == 'sedang di cek')
+                      <a href="{{ url('new-post/'.$item->id_berita) }}" class="btn btn-info">cek</a>
+                    @endif
                   </td>
                 </tr>
             @endforeach

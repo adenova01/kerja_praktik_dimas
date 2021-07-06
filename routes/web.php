@@ -25,5 +25,6 @@ Route::post('/cekLogin', [AuthController::class, 'cek_login']);
 Route::get('list-hoax', [HomeController::class, 'listHoax']);
 Route::get('home', [HomeController::class, 'Home']);
 Route::get('new-post', [HomeController::class, 'addNew']);
+Route::get('new-post/{id}', [HomeController::class, 'addNew']);
 
 // Route::post('save-news', [CheckNewsController::class, 'save_berita']);
