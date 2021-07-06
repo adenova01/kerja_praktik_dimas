@@ -17,11 +17,11 @@
         <div class="card-body">
           <form class="add-new-post" action="" method="">
             <label>Header Title</label>
-            <input v-model="header_title" class="form-control form-control-md mb-3" name="title" type="text" placeholder="Post Title" value="{{ Request::segment(2) != null ? $berita->text_header : '' }}" required>
+            <input v-model="header_title" class="form-control form-control-md mb-3" name="title" type="text" placeholder="Post Title" required>
             <label>Link Berita</label>
             <div class="row">
               <div class="col-sm-10">
-                <input v-model="link" class="form-control form-control-md mb-3" name="link" type="text"   placeholder="Link Berita" value="{{ Request::segment(2) != null ? $berita->link_berita : '' }}">
+                <input v-model="link" class="form-control form-control-md mb-3" name="link" type="text" placeholder="Link Berita">
               </div>
               <div class="col-sm-2">
                 <a v-bind:href="link" class="btn btn-primary btn-md" target="beritanya" v-on:click="saveBerita()">cek link</a>

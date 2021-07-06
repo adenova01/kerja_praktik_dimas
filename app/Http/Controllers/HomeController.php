@@ -21,17 +21,10 @@ class HomeController extends Controller
         return view('home', compact('title','berita'));
     }
 
-    public function addNew($id = false)
+    public function addNew()
     {
         $title = 'Add New';
         $kategori = Kategori::all();
-
-        if($id){
-            $berita = Berita::where('id_berita', $id)->first();
-            return view('new-post', compact('title','kategori','berita'));
-        } else {
-            return view('new-post', compact('title','kategori'));
-        }
-
+        return view('new-post', compact('title','kategori'));
     }
 }

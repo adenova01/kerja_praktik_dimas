@@ -16,12 +16,12 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/quill/1.3.6/quill.snow.css">
   </head>
   <body class="h-100">
-    <div class="container-fluid">
+    <div class="container-fluid" id="content_berita">
       <div class="row">
         <!-- Main Sidebar -->
         @include('template.sidebar')
         <!-- End Main Sidebar -->
-        <main class="main-content col-lg-10 col-md-9 col-sm-12 p-0 offset-lg-2 offset-md-3"  id="content_berita">
+        <main class="main-content col-lg-10 col-md-9 col-sm-12 p-0 offset-lg-2 offset-md-3">
           <div class="main-navbar sticky-top bg-white">
             <!-- Main Navbar -->
             @include('template.top_nav')
@@ -86,6 +86,7 @@
             //   });
           },
           saveBerita: function(){
+            // console.log(this.header_title);
             axios
               .post("{{ url('api/save_berita/') }}", {
                 header : this.header_title,
@@ -110,7 +111,6 @@
               });
           },
           valid: function(){
-            // var url = "{{ url('api/update_berita/') }}/"+this.id_berita;
             var status = 'valid';
             var url = "{{ url('api/update_berita/') }}/"+status+"/"+this.id_berita;
             // console.log(url);
@@ -154,15 +154,15 @@
               });
           },
           cekBerita: function(id){
-            this.id_berita = id;
-            axios
-              .get("{{ url('api/cekBerita') }}/"+id)
-              .then(response => {
-                this.url = response.data.view;
-                console.log(this.url);
-              }).catch(err => {
-                console.log(err);
-              });
+            // this.id_berita = id;
+            // axios
+            //   .get("{{ url('api/cekBerita') }}/"+id)
+            //   .then(response => {
+            //     this.url = response.data.view;
+            //     console.log(this.url);
+            //   }).catch(err => {
+            //     console.log(err);
+            //   });
           }
         },
         mounted(){

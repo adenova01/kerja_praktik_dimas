@@ -47,8 +47,8 @@ class ApiController extends Controller
                 'code'  => 403,
             ];
         } else {
-            $insert = Berita::insert($data);
-            $id_berita = Berita::max('id_berita');
+            // $insert = Berita::insert($data);
+            // $id_berita = Berita::max('id_berita');
 
             $response = [
                 'pesan' => 'sukses',

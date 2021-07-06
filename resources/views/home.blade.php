@@ -81,7 +81,7 @@
                   </td>
                   <td>
                     @if ($item->status == 'sedang di cek')
-                      <a href="{{ url('new-post/'.$item->id_berita) }}" class="btn btn-info">cek</a>
+                      <a class="btn btn-info">cek</a>
                     @endif
                   </td>
                 </tr>
