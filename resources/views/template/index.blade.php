@@ -93,7 +93,7 @@
                 link : this.link,
                 user_id : "{{ session('id_user') }}"
               }).then(response => {
-                // console.log(response.data);
+                console.log(response.data);
                 this.get_detil_berita();
               }).catch(err => {
                 console.log(err);

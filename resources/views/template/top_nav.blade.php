@@ -50,7 +50,7 @@
                     <span class="d-none d-md-inline-block">{{session('nama')}}</span>
                   </a>
                   <div class="dropdown-menu dropdown-menu-small">
-                    <a class="dropdown-item text-danger" href="#">
+                    <a class="dropdown-item text-danger" href="{{ url('/Logout') }}">
                       <i class="material-icons text-danger">&#xE879;</i> Logout 
                     </a>
                   </div>

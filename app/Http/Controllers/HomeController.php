@@ -11,7 +11,9 @@ class HomeController extends Controller
     public function listHoax()
     {
         $title = 'Hoax';
-        return view('listHoax', compact('title'));
+        $listHoax = Berita::where('status','hoax')->get();
+        // dd($listHoax);
+        return view('listHoax', compact('title','listHoax'));
     }
 
     public function Home()

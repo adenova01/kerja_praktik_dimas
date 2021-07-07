@@ -41,20 +41,20 @@ class ApiController extends Controller
             'status'      => 'sedang di cek'
         ];
 
-        if(!@fopen($data['link_berita'], 'r')){
-            $response = [
-                'pesan' => 'gagal',
-                'code'  => 403,
-            ];
-        } else {
-            // $insert = Berita::insert($data);
-            // $id_berita = Berita::max('id_berita');
+        // if(!@fopen($data['link_berita'], 'r')){
+        //     $response = [
+        //         'pesan' => 'gagal',
+        //         'code'  => 403,
+        //     ];
+        // } else {
+            $insert = Berita::insert($data);
+            $id_berita = Berita::max('id_berita');
 
             $response = [
                 'pesan' => 'sukses',
                 'code'  => 200,
             ];
-        }
+        // }
 
         return response()->json($response);
     }

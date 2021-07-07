@@ -16,11 +16,14 @@ use App\Http\Controllers\AuthController;
 |
 */
 
-Route::get('/', function(){
+Route::get('/Login', function(){
     return view('login');
 });
 
+Route::get('/', [AuthController::class, 'dataHoax']);
+
 Route::post('/cekLogin', [AuthController::class, 'cek_login']);
+Route::get('/Logout', [AuthController::class, 'logout']);
 
 Route::get('list-hoax', [HomeController::class, 'listHoax']);
 Route::get('home', [HomeController::class, 'Home']);

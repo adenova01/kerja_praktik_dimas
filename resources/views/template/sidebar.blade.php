@@ -23,19 +23,23 @@
             </div>
           </form>
           <div class="nav-wrapper">
+            
             <ul class="nav flex-column">
+              @if (session('id_user'))    
               <li class="nav-item">
                 <a class="nav-link {{ $title == 'Home' ? 'active' : '' }}" href="{{ url('home') }}">
-                  <i class="material-icons">edit</i>
-                  <span>Dashboard</span>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link {{ $title == 'Add New' ? 'active' : '' }}" href="{{ url('new-post') }}">
-                  <i class="material-icons">note_add</i>
-                  <span>Add New Post</span>
-                </a>
-              </li>
+                    <i class="material-icons">edit</i>
+                    <span>Dashboard</span>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link {{ $title == 'Add New' ? 'active' : '' }}" href="{{ url('new-post') }}">
+                    <i class="material-icons">note_add</i>
+                    <span>Add New Post</span>
+                  </a>
+                </li>
+              @endif
+
               <li class="nav-item">
                 <a class="nav-link {{ $title == 'Hoax' ? 'active' : '' }}" href="{{ url('list-hoax') }}">
                   <i class="material-icons">vertical_split</i>

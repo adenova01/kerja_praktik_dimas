@@ -4,9 +4,16 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\UserLogin;
+use App\Models\Berita;
 
 class AuthController extends Controller
 {
+    public function dataHoax()
+    {
+        $data = Berita::all();
+        return view('data_hoax', compact('data'));
+    }
+
     public function cek_login(Request $request)
     {
         $login = [
@@ -25,5 +32,11 @@ class AuthController extends Controller
         } else {
             return redirect(url('/'))->with('message','Login gagal password / username salah');
         }
+    }
+
+    public function logout()
+    {
+        session()->forget(['nama','id_user']);
+        return redirect(url('/'))->with('message','Logout sukses');
     }
 }
